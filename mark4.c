@@ -42,13 +42,11 @@ int main(){
     printf("Write number of clients (1 to %d)\n", max_clients_count);
     scanf("%d", &num_of_clients);
 
-    // create semaphore
     if (!(sem_addr = sem_open(sem_name, O_CREAT, 0666, 1))) {
         perror("ERROR: Failed to create semaphore!");
         return -1;
     }
-
-    // shared memory
+    
     shm_unlink(sem_name);
     if ((memory_fd = shm_open(sem_name, O_CREAT | O_EXCL | O_RDWR, 0666)) == -1) {
         perror("ERROR: Failed to create shared memory!");
@@ -84,7 +82,7 @@ int main(){
             ++(*in_line);
             printf("....Client number %d came to barbershop! He is number %d in line!....\n", i, *in_line);
             while(!haircut_started){
-                //waiting queue
+                //waiting line
                 if(sem_wait(sem_addr) == -1) {
                     perror("ERROR: sem_wait!");
                     exit(-1);
