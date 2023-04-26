@@ -11,13 +11,13 @@
 #include <stdbool.h>
 #include <sys/wait.h>
 
-#define max_clients_count 30 // max number of orders
+#define max_clients_count 30 // max number of clients
 
 pid_t child_pids[max_clients_count];
 
 int memory_fd;
 
-char sem_name[] = "barbershop_semaphore";		   // name of semaphore
+char sem_name[] = "barbershop_semaphore";	// semaphore name
 sem_t *sem_addr; 	// adress of semaphore
 
 
